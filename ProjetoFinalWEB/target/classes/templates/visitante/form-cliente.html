@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Clientes</title>
+<!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
+<script src="/js/bootstrap.min.js">	 </script>
+</head>
+
+<body>
+	<header>
+		<div class="ini-topo"></div>
+		<nav>
+			<ul>
+				<li><a href="/inicio">Início</a></li>
+				<li><a href="/produto/galeria"> <span
+						sec:authorize="!hasRole('ADMIN')">Galeria</span></a></li>
+				<li><a href="/produto/listar"> <span
+						sec:authorize="hasRole('ADMIN')">Produtos</span></a></li>
+				<li><a href="/cliente/logar"> <span
+						sec:authorize="!isAuthenticated()">Logar</span></a></li>
+				<li><a href="/produto/cadastrarProduto"> <span
+						sec:authorize="hasRole('ADMIN')">Cadastrar produto</span></a></li>
+
+				<li><a href="/cliente/cadastrarCliente"> <span
+						sec:authorize="!isAuthenticated()">Cadastrar Cliente</span></a></li>
+
+				<li><a href="/carrinho"> <span
+						sec:authorize="hasRole('USER')">Carrinho</span></a></li>
+				<li><a href="/logout"> <span
+						sec:authorize="isAuthenticated()">logout</span></a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<form method="POST" action="/cliente/salvar"
+		enctype="multipart/form-data" th:object="${cliente}">
+		<input type="hidden" th:field="*{id}">
+
+		<div class="alert alert-success" role="alert"
+			th:if="${!#strings.isEmpty(mensagem)}">
+			<span th:text="${mensagem}"> </span>
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputEmail1">Nome</label> <input type="text"
+				required="" class="form-control" id="exampleInputEmail1"
+				th:field=*{nome}>
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputEmail1">Cpf</label> <input type="text"
+				required="" class="form-control" id="exampleInputEmail1"
+				th:field=*{cpf}>
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputEmail1">Data de Nascimento</label> <input
+				type="text" required="" class="form-control" id="exampleInputEmail1"
+				th:field=*{dataNascimento}>
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputEmail1">Endereço</label> <input type="text"
+				required="" class="form-control" id="exampleInputEmail1"
+				th:field=*{endereco}>
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputPassword1">Login</label> <input type="text"
+				class="form-control" id="exampleInputPassword1" th:field="*{login}">
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputPassword1">Senha</label> <input type="text"
+				class="form-control" id="exampleInputPassword1" th:field="*{senha}">
+		</div>
+		<button type="submit" class="btn btn-primary">Cadastrar</button>
+	</form>
+</body>
+
+</html>

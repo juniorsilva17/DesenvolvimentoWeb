@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Produtos</title>
+<!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
+<script src="/js/bootstrap.min.js">
+	
+</script>
+</head>
+
+<body>
+	<header>
+		<div class="ini-topo"></div>
+		<nav>
+			<ul>
+				<li><a href="/inicio">Início</a></li>
+				<li><a href="/produto/galeria"> <span
+						sec:authorize="!hasRole('ADMIN')">Galeria</span></a></li>
+				<li><a href="/produto/listar"> <span
+						sec:authorize="hasRole('ADMIN')">Produtos</span></a></li>
+				<li><a href="/cliente/logar"> <span
+						sec:authorize="!isAuthenticated()">Logar</span></a></li>
+				<li><a href="/produto/cadastrarProduto"> <span
+						sec:authorize="hasRole('ADMIN')">Cadastrar produto</span></a></li>
+
+				<li><a href="/cliente/cadastrarCliente"> <span
+						sec:authorize="!isAuthenticated()">Cadastrar Cliente</span></a></li>
+
+				<li><a href="/carrinho"> <span
+						sec:authorize="hasRole('USER')">Carrinho</span></a></li>
+				<li><a href="/logout"> <span
+						sec:authorize="isAuthenticated()">logout</span></a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<form method="POST" action="/produto/salvar"
+		enctype="multipart/form-data" th:object="${produto}">
+		<input type="hidden" th:field="*{id}">
+
+		<div class="alert alert-success" role="alert"
+			th:if="${!#strings.isEmpty(mensagem)}">
+			<span th:text="${mensagem}"> </span>
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputEmail1">Nome</label> <input type="text"
+				required="" class="form-control" id="exampleInputEmail1"
+				th:field=*{nome}>
+		</div>
+				
+		<div class="form-group">
+			<label for="exampleInputPassword1">Preço</label> <input type="number"
+				required="" min="0" step="0.01" class="form-control"
+				id="exampleInputPassword2" th:field="*{preco}">
+		</div>
+
+		<div class="form-group">
+			<label for="exampleInputPassword1">Quantidade</label> <input type="number"
+				required="" min="1" class="form-control"
+				id="exampleInputPassword2" th:field="*{quantidade}">
+		</div>
+		
+		<!-- Select images: <input type="file" name="img" multiple> -->
+
+		<div class="form-group">
+			Selecione Imagem: <input type="file" name="imagem">
+		</div>
+
+		<button type="submit" class="btn btn-primary">Cadastrar</button>
+
+	</form>
+</body>
+
+</html>

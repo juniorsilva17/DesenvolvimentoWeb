@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Listagem de Produtos</title>
+<!--<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
+<script src="/js/bootstrap.min.js">
+	
+</script>
+
+</head>
+<body>
+	<header>
+		<div class="ini-topo"></div>
+		<nav>
+			<ul>
+				<li><a href="/inicio">Início</a></li>
+				<li><a href="/produto/galeria"> <span
+						sec:authorize="!hasRole('ADMIN')">Galeria</span></a></li>
+				<li><a href="/produto/listar"> <span
+						sec:authorize="hasRole('ADMIN')">Produtos</span></a></li>
+				<li><a href="/cliente/logar"> <span
+						sec:authorize="!isAuthenticated()">Logar</span></a></li>
+				<li><a href="/produto/cadastrarProduto"> <span
+						sec:authorize="hasRole('ADMIN')">Cadastrar produto</span></a></li>
+
+				<li><a href="/cliente/cadastrarCliente"> <span
+						sec:authorize="!isAuthenticated()">Cadastrar Cliente</span></a></li>
+
+				<li><a href="/carrinho"> <span
+						sec:authorize="hasRole('USER')">Carrinho</span></a></li>
+				<li><a href="/logout"> <span
+						sec:authorize="isAuthenticated()">logout</span></a></li>
+			</ul>
+		</nav>
+	</header>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Preço</th>
+				<th scope="col">Foto</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="produto : ${todosOsProdutos}">
+				<form method="POST" action="/carrinho/add">
+					<td th:text="${produto.id}"></td>
+					<td th:text="${produto.nome}"></td>
+					<td th:text="${produto.preco}"></td>
+					<td><img width="40px" height="60px" alt=""
+						th:src="@{'/images/'+${produto.nome}+.jpg}" /></td>
+
+					<td><button sec:authorize="!hasRole('ADMIN')" type="submit">Comprar</button></td>
+				</form>
+
+			</tr>
+
+		</tbody>
+	</table>
+
+</body>
+</html>

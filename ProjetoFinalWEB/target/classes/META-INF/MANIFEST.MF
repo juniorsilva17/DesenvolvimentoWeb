@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: ProjetoFinalWEB
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: junior
+Implementation-Vendor-Id: com.ufc.br
+Build-Jdk: 1.8.0_171
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/Projeto-Final-WEB
+Created-By: Maven Integration for Eclipse
+
